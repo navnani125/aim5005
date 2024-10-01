@@ -48,3 +48,20 @@ class StandardScaler:
     def fit_transform(self, x: np.ndarray) -> np.ndarray:
         self.fit(x)
         return self.transform(x)
+
+
+class LabelEncoder:
+    def __init__(self):
+        self.classes_ = None
+    
+    def fit(self, y: List[str]) -> None:
+        self.classes_ = np.unique(y)
+    
+    def transform(self, y: List[str]) -> np.ndarray:
+        class_to_index = {cls: idx for idx, cls in enumerate(self.classes_)}
+        return np.array([class_to_index[cls] for cls in y])
+    
+    def fit_transform(self, y: List[str]) -> np.ndarray:
+        self.fit(y)
+        return self.transform(y)
+
