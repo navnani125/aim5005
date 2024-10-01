@@ -34,4 +34,17 @@ class MinMaxScaler:
 class StandardScaler:
     def __init__(self):
         self.mean = None
-        raise NotImplementedError
+        self.std = None
+        
+    def fit(self, x: np.ndarray) -> None:
+        x = self._check_is_array(x)
+        self.mean = x.mean(axis=0)
+        self.std = x.std(axis=0)
+    
+    def transform(self, x: np.ndarray) -> np.ndarray:
+        x = self._check_is_array(x)
+        return (x - self.mean) / self.std
+    
+    def fit_transform(self, x: np.ndarray) -> np.ndarray:
+        self.fit(x)
+        return self.transform(x)
